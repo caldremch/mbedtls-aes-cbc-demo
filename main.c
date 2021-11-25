@@ -7,21 +7,11 @@
 #include <mbedtls/base64.h>
 
 
-#define KEY  "JNb8bOOnlFonD49n"
-#define IV  "NFvFrmHqwI8cuzWv"
-
 #define BLOCK_SIZE 16
 #define KEY_IV_SIZE 17
 //密钥
 uint8_t key[KEY_IV_SIZE] = "JNb8bOOnlFonD49n\0";
 uint8_t iv[KEY_IV_SIZE] = "NFvFrmHqwI8cuzWv\0";
-//明文
-const unsigned char *plain = "Caldremch";
-//密文
-unsigned char cipher[2048] = {0};
-//解密后的明文
-unsigned char plain_decrypt[96] = {0};
-
 
 int hex2str(char *digest, char *result, int len) {
     int i;
@@ -36,7 +26,6 @@ int hex2str(char *digest, char *result, int len) {
     printf("result=%s\n", result);
 
 }
-
 
 void printHex(unsigned char *array) {
     for (int i = 0; i < strlen(array); ++i) {
