@@ -118,19 +118,6 @@ void aes_encrypt(char *content,  uint8_t *out) {
     memcpy(in, content, plain_txt_len);
 
     //add padding
-//    for (int i = 0; i < padding_len; ++i) {
-//        in[plain_txt_len + i] = remain;
-//    }
-
-    /*mbedtls_cipher_info_t  cipher_info;
-    mbedtls_cipher_context_t ctx_enc;
-    mbedtls_cipher_init(&ctx_enc);
-    cipher_info.mode = MBEDTLS_MODE_CBC;
-    ctx_enc.cipher_info = &cipher_info;
-    mbedtls_cipher_set_padding_mode(&ctx_enc, MBEDTLS_PADDING_PKCS7);
-    ctx_enc.add_padding(in, block_length,  plain_txt_len);*/
-
-
     mbedtls_cipher_info_t  *cipher_info;
     cipher_info = (mbedtls_cipher_info_t  *)mbedtls_cipher_info_from_type(MBEDTLS_CIPHER_AES_128_CBC);
     mbedtls_cipher_context_t ctx_enc;
@@ -199,7 +186,6 @@ void aes_decrypt(uint8_t *content) {
     mbedtls_cipher_context_t ctx_dec;
     mbedtls_cipher_init(&ctx_dec);
     mbedtls_cipher_setup(&ctx_dec, cipher_info);
-    //todo need to change to a dynamic value
     size_t out_len = block_length;  //out_len最终会返回真实的长度
     int a = ctx_dec.get_padding(out, block_length, &out_len);
     printf("padding-length=%d, %d\n", a, out_len);
@@ -220,7 +206,6 @@ int main() {
     printHex(out);
     printf("解密");
     aes_decrypt(out);
-
 
     return 0;
 }
